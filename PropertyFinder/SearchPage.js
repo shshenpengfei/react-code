@@ -83,7 +83,6 @@ function urlForQueryAndPage(key, value, pageNumber) {
       encoding: 'json',
       listing_type: 'buy',
       action: 'search_listings',
-      page: pageNumber
   };
   data[key] = value;
 
@@ -91,7 +90,9 @@ function urlForQueryAndPage(key, value, pageNumber) {
     .map(key => key + '=' + encodeURIComponent(data[key]))
     .join('&');
 
-  return 'http://api.nestoria.co.uk/api?' + querystring;
+  //return 'http://api.nestoria.co.uk/api?' + querystring;
+  console.log('http://121.40.128.183/jiuxing/mobile/index.php?act=goods&op=goods_list&'+ querystring);
+  return  'http://121.40.128.183/jiuxing/mobile/index.php?act=goods&op=goods_list&'+ querystring
 };
 
 class SearchPage extends Component {
@@ -154,17 +155,17 @@ class SearchPage extends Component {
   }
 
   _executeQuery(query) {
-  console.log(query);
   this.setState({ isLoading: true });
-fetch(query)
-  .then(response => response.json())
-  .then(json => this._handleResponse(json.response))
-  .catch(error => 
-     this.setState({
-      isLoading: false,
-      message: 'Something bad happened ' + error
-   }));
-	}
+  fetch(query)
+  	.then(response => response.json())
+    .then(json => this._handleResponse(json.response))
+    .catch(error => 
+     	this.setState({
+      		isLoading: false,
+      		message: '似乎发生了一些不太好的事情 ' + error
+   		})
+   	);
+  }
 
 
 
@@ -174,6 +175,7 @@ fetch(query)
 	}
 
 _handleResponse(response) {
+  console.log(response);
   this.setState({ isLoading: false , message: '' });
   if (response.application_response_code.substr(0, 1) === '1') {
     //console.log('Properties found: ' + response.listings.length);

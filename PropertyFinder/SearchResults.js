@@ -55,7 +55,8 @@ class SearchResults extends Component {
   }
 
 	renderRow(rowData, sectionID, rowID) {
-	  var price = rowData.price_formatted.split(' ')[0];
+	  //var price = rowData.price_formatted.split(' ')[0];
+    var price = 100;
 
 	  return (
 	    <TouchableHighlight onPress={() => this.rowPressed(rowData.guid)}
